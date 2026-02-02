@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Surprise! 🎉</title>
+  
+  <meta property="og:title" content="You've been pranked! 🎈">
+  <meta property="og:description" content="Think you can handle this birthday challenge?">
+  <meta property="og:image" content="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/1f382.png">
+  
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Comic+Neue:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow-x: hidden;
+      color: white;
+      transition: background 0.5s;
+      padding: 20px;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    body.dark-mode {
+      background: #000 !important;
+      animation: none;
+    }
+    body.shake {
+      animation: earthquake 0.5s;
+    }
+    @keyframes earthquake {
+      0%, 100% { transform: translate(0, 0); }
+      10%, 30%, 50%, 70%, 90% { transform: translate(-10px, 5px); }
+      20%, 40%, 60%, 80% { transform: translate(10px, -5px); }
+    }
+    /* BUBBLES */
+    .circles {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0; pointer-events: none;
+    }
+    .circles li {
+      position: absolute; display: block; list-style: none;
+      width: 20px; height: 20px; background: rgba(255, 255, 255, 0.2);
+      animation: animate 25s linear infinite; bottom: -150px; border-radius: 50%;
+    }
+    .circles li:nth-child(1){ left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+    .circles li:nth-child(2){ left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+    .circles li:nth-child(3){ left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+    .circles li:nth-child(4){ left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+    .circles li:nth-child(5){ left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
+    .circles li:nth-child(6){ left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
+    
+    @keyframes animate {
+      0%{ transform: translateY(0) rotate(0deg); opacity: 1; }
+      100%{ transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+    }
+    /* CARDS */
+    .container {
+      display: none;
+      width: 90%;
+      max-width: 500px;
+      z-index: 10;
+      position: relative;
+    }
+    .active { display: block; animation: zoomIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+    @keyframes zoomIn { 
+      from {transform: scale(0.3) rotate(-5deg); opacity: 0;} 
+      to {transform: scale(1) rotate(0deg); opacity: 1;} 
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      position: relative;
+    }
+    h1 { 
+      margin: 0 0 15px 0; 
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 700; 
+      text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      font-family: 'Permanent Marker', cursive;
+    }
+    h2 { margin: 10px 0; font-size: clamp(1.3rem, 4vw, 1.6rem); font-weight: 700; }
+    p { font-size: clamp(1rem, 3vw, 1.2rem); margin-bottom: 20px; opacity: 0.95; line-height: 1.6; }
+    /* COMMENTARY BOX */
+    .roast-box {
+      background: rgba(0, 0, 0, 0.4);
+      border-left: 4px solid #ff6b6b;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 8px;
+      font-style: italic;
+      animation: slideIn 0.5s;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+    }
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    /* MEME IMAGE */
+    .meme-img {
+      width: 100%;
+      max-width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      object-fit: cover;
+    }
+    /* JUMPSCARE */
+    #jumpscare {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99999;
+      background: #000;
+      justify-content: center;
+      align-items: center;
+    }
+    #jumpscare img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      animation: screamShake 0.1s infinite;
+    }
+    @keyframes screamShake {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(-20px, 10px) scale(1.05); }
+      50% { transform: translate(20px, -10px) scale(0.95); }
+      75% { transform: translate(-10px, -20px) scale(1.05); }
+    }
+    /* BUTTONS */
+    button {
+      font-family: 'Comic Neue', cursive;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      padding: 15px 30px; 
+      border: none; 
+      border-radius: 50px;
+      cursor: pointer; 
+      font-weight: 700; 
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25); 
+      position: relative; 
+      overflow: hidden;
+      text-transform: uppercase;
+      width: 100%;
+    }
+    button:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
+    button:active { transform: scale(0.95); }
+    .btn-run { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    .btn-danger { background: linear-gradient(to right, #ff0000, #8b0000); color: white; margin-bottom: 15px; }
+    .btn-safe { background: linear-gradient(to right, #11998e, #38ef7d); color: white; }
+    .btn-quiz { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; margin-bottom: 12px; }
+    .btn-quiz.wrong { background: #e74c3c; animation: buzzShake 0.5s; }
+    @keyframes buzzShake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+      20%, 40%, 60%, 80% { transform: translateX(10px); }
+    }
+    /* TROLL COUNTER */
+    .troll-counter {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.7);
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+      font-weight: bold;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    /* FAKE VIRUS SCREEN */
+    #virusScreen {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: #c00;
+      color: white;
+      z-index: 9999;
+      padding: 40px 20px;
+      font-family: 'Courier New', monospace;
+    }
+    #virusScreen h1 {
+      font-size: clamp(2rem, 8vw, 4rem);
+      animation: blink 0.5s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    /* TIMER */
+    .timer {
+      font-size: clamp(2rem, 8vw, 3rem);
+      font-weight: bold;
+      color: #ff6b6b;
+      margin: 20px 0;
+      font-family: 'Permanent Marker', cursive;
+    }
+    
+    /* RIDDLE STYLES */
+    .riddle-input {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: clamp(1rem, 3vw, 1.1rem);
+      font-family: 'Comic Neue', cursive;
+      text-align: center;
+    }
+    .riddle-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .riddle-text {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px;
+      border-radius: 15px;
+      margin: 15px 0;
+      font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+      line-height: 1.6;
+      text-align: left;
+    }
+    .btn-check {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      margin-top: 10px;
+    }
+    .answer-reveal {
+      background: rgba(76, 175, 80, 0.3);
+      border: 2px solid #4caf50;
+      padding: 15px;
+      border-radius: 15px;
+      margin-top: 15px;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      font-weight: bold;
+      display: none;
+    }
+    
+    /* CAKE STYLES */
+    .cake-box { position: relative; height: 200px; margin-top: 40px; }
+    .cake {
+      width: 200px; height: 90px; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px 10px 0 0; 
+      position: absolute; 
+      bottom: 0; 
+      left: 50%; 
+      transform: translateX(-50%);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .frosting {
+      width: 220px; height: 25px; 
+      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+      border-radius: 15px; 
+      position: absolute; 
+      top: -12px; 
+      left: -10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    .candles {
+      display: flex; 
+      gap: 25px; 
+      position: absolute; 
+      bottom: 95px; 
+      left: 50%; 
+      transform: translateX(-50%);
+    }
+    .candle { 
+      width: 18px; 
+      height: 55px; 
+      background: linear-gradient(180deg, #ff6b6b, #ee5a6f);
+      position: relative; 
+      border-radius: 3px; 
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
+    .flame {
+      width: 20px; 
+      height: 30px; 
+      background: linear-gradient(180deg, #ffd93d, #ff6b35);
+      border-radius: 50% 50% 20% 20%;
+      position: absolute; 
+      top: -30px; 
+      left: -1px;
+      box-shadow: 0 0 20px #ff6b35, 0 0 40px #ffd93d;
+      animation: flicker 0.3s infinite alternate; 
+      cursor: pointer;
+    }
+    .flame.out { display: none; }
+    @keyframes flicker { 
+      0% { transform: scale(1) translateY(0); } 
+      100% { transform: scale(1.15) translateY(-3px); } 
+    }
+    #finalMsg { 
+      display: none; 
+      margin-top: 25px; 
+      animation: fadeInUp 1s; 
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* FINAL BIRTHDAY WISH STYLES */
+    .birthday-container {
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .birthday-message {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(3rem, 12vw, 6rem);
+      background: linear-gradient(45deg, #fff, #ffd700, #fff, #ffd700);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease infinite;
+      margin: 20px 0;
+      text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 215, 0, 0.6),
+        0 0 30px rgba(255, 215, 0, 0.4);
+      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+      line-height: 1.2;
+      font-weight: bold;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .name-display {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2.5rem, 10vw, 5rem);
+      color: #fff;
+      text-shadow: 
+        0 0 10px rgba(255, 215, 0, 1),
+        0 0 20px rgba(255, 215, 0, 0.8),
+        0 0 30px rgba(255, 215, 0, 0.6),
+        0 0 40px rgba(255, 140, 0, 0.5),
+        0 5px 10px rgba(0, 0, 0, 0.5);
+      margin: 30px 0;
+      animation: glow 2s ease-in-out infinite;
+      font-weight: bold;
+    }
+    
+    @keyframes glow {
+      0%, 100% { 
+        opacity: 1; 
+        transform: scale(1);
+        filter: brightness(1);
+      }
+      50% { 
+        opacity: 0.9; 
+        transform: scale(1.05);
+        filter: brightness(1.2);
+      }
+    }
+    
+    .personal-message {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 30px auto;
+      max-width: 600px;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      line-height: 1.8;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 2s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .emoji-decoration {
+      font-size: clamp(2rem, 6vw, 3rem);
+      margin: 20px 0;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    /* Mobile optimizations */
+    @media (max-width: 600px) {
+      .card {
+        padding: 25px 20px;
+      }
+      .troll-counter {
+        top: 10px;
+        right: 10px;
+        padding: 10px 15px;
+      }
+      .cake {
+        width: 150px;
+        height: 70px;
+      }
+      .frosting {
+        width: 170px;
+        height: 20px;
+      }
+      .candles {
+        bottom: 75px;
+        gap: 20px;
+      }
+      .candle {
+        width: 14px;
+        height: 45px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <ul class="circles">
+    <li></li><li></li><li></li><li></li><li></li><li></li>
+  </ul>
+  <!-- TROLL COUNTER -->
+  <div class="troll-counter">
+    😈 Troll Score: <span id="trollScore">0</span>
+  </div>
+  <!-- JUMPSCARE OVERLAY -->
+  <div id="jumpscare">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect fill='%23ff0000' width='400' height='400'/%3E%3Ctext x='200' y='200' font-size='200' text-anchor='middle' dominant-baseline='middle'%3E👻%3C/text%3E%3C/svg%3E" alt="BOO!">
+  </div>
+  <!-- FAKE VIRUS SCREEN -->
+  <div id="virusScreen">
+    <h1>⚠️ VIRUS DETECTED ⚠️</h1>
+    <p style="font-size: clamp(1.2rem, 4vw, 1.5rem); margin: 30px 0;">Your device has been infected with BIRTHDAY.exe kaiko dabae button ab phone mein virus aajata </p>
+    <p style="font-size: clamp(1rem, 3vw, 1.2rem);">Deleting all files...</p>
+    <p style="font-size: clamp(1rem, 3vw, 1.2rem); margin-top: 20px;" id="virusProgress">0%</p>
+    <p style="font-size: clamp(0.9rem, 2.5vw, 1rem); margin-top: 40px; opacity: 0.7;">kuch bhi nai aaya khali mazakh kara😂</p>
+  </div>
+  <!-- LEVEL 1: RUNNING BUTTON -->
+  <div id="level1" class="container active">
+    <div class="card">
+      <h1>🎁 Your Gift Awaits!</h1>
+      <p>Just click the button below to claim it...</p>
+      <div class="roast-box" id="roastBox1" style="display: none;">
+        😏 Nice try! itta asaan rahta samjhe kya?
+      </div>
+      <div style="height: 80px; position: relative; margin-top: 20px;">
+        <button id="runBtn" class="btn-run">CLAIM GIFT 🎁</button>
+      </div>
+      <p id="missCount" style="margin-top: 20px; font-size: clamp(0.9rem, 2.5vw, 1rem); opacity: 0.7;"></p>
+    </div>
+  </div>
+  <!-- LEVEL 2: FAKE CHOICES -->
+  <div id="level2" class="container">
+    <div class="card">
+      <h1>🤔 Important Decision</h1>
+      <p>Choose your path carefully...</p>
+      <div class="roast-box">
+        😈 Plot twist: They're BOTH pranks! HAHAHAHA!
+      </div>
+      
+      <button id="dangerBtn" class="btn-danger">⚠️ Nakko press karo yeh button </button>
+      <button id="safeBtn" class="btn-safe">✅ Safe Choice (Trust Me)</button>
+    </div>
+  </div>
+  
+  <!-- RIDDLES SECTION -->
+  <div id="riddleSection" class="container">
+    <div class="card">
+      <h1>🧩 Riddle Time!</h1>
+      <p>Solve these riddles to continue...</p>
+      <div id="riddleContainer">
+        <!-- Riddle 1 -->
+        <div class="riddle" id="riddle1">
+          <div class="riddle-text">
+            <strong>Riddle 1:</strong><br>
+            "Ek aadmi tez baarish mein bina chatri (umbrella) ke ja raha tha. Uske paas topi bhi nahi thi, phir bhi uska ek bhi baal geela nahi hua. Batao kaise?"<br><br>
+            <em>(A man was walking in heavy rain without an umbrella or hat. Yet, not a single hair on his head got wet. How?)</em>
+          </div>
+          <input type="text" class="riddle-input" id="answer1" placeholder="Type your answer here...">
+          <button class="btn-check" onclick="checkRiddle(1, 'ganja')">Check Answer</button>
+          <div class="answer-reveal" id="reveal1">
+            ✅ Answer: Kyunki wo Ganja (Bald) tha Takla!
+          </div>
+        </div>
+      </div>
+      <p id="riddleProgress" style="margin-top: 20px; font-size: clamp(0.95rem, 2.8vw, 1.1rem);">Riddle <span id="currentRiddle">1</span> of 5</p>
+    </div>
+  </div>
+  
+  <!-- LEVEL 3: IMPOSSIBLE QUIZ WITH MEMES -->
+  <div id="level3" class="container">
+    <div class="card">
+      <h1>🧠 IQ Test</h1>
+      <p id="quizQuestion">What has keys but no locks, space but no room, and you can enter but can't go inside?</p>
+      
+      <div id="memeContainer" style="display: none;">
+        <svg class="meme-img" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <rect fill="#ffeb3b" width="200" height="200"/>
+          <circle cx="70" cy="80" r="15" fill="#000"/>
+          <circle cx="130" cy="80" r="15" fill="#000"/>
+          <path d="M 60 140 Q 100 100 140 140" stroke="#000" stroke-width="5" fill="none"/>
+          <text x="100" y="30" font-size="16" text-anchor="middle" fill="#000">You really</text>
+          <text x="100" y="50" font-size="16" text-anchor="middle" fill="#000">got that wrong?</text>
+        </svg>
+      </div>
+      
+      <div class="roast-box" id="roastBox3" style="display: none;">
+        🤦‍♀️ Seriously? Maybe we should celebrate your half-birthday instead...
+      </div>
+      
+      <button class="btn-quiz" data-answer="wrong">A House 🏠</button>
+      <button class="btn-quiz" data-answer="correct">A Keyboard ⌨️</button>
+      <button class="btn-quiz" data-answer="wrong">A Car 🚗</button>
+      <button class="btn-quiz" data-answer="wrong">Your Brain 🧠</button>
+    </div>
+  </div>
+  <!-- LEVEL 4: SPEED CHALLENGE WITH TIMER -->
+  <div id="level4" class="container">
+    <div class="card">
+      <h1>⚡ Speed Challenge!</h1>
+      <p>yeh button to 10 baar press karo jaldi 10 seconds se pehle!</p>
+      <div class="timer" id="timer">10</div>
+      <div class="roast-box" id="roastBox4" style="display: none;">
+        🐌 Are itta slow click kare toh kaisa ji nanna tumhare se fast click karte!
+      </div>
+      <button id="speedBtn" class="btn-run">
+        CLICK ME! (<span id="clickCount">0</span>/10)
+      </button>
+      <p id="speedResult" style="margin-top: 15px; font-size: clamp(0.95rem, 2.8vw, 1.1rem);"></p>
+    </div>
+  </div>
+  <!-- LEVEL 5: FIND THE REAL BUTTON -->
+  <div id="level5" class="container">
+    <div class="card">
+      <h1>🎯 Asli button kounsa hai maloom karo</h1>
+      <p>Only ONE button works. Choose wisely!</p>
+      <div class="roast-box">
+        😏 Feeling lucky? You shouldn't be...
+      </div>
+      
+      <button class="btn-quiz fake-btn">CLICK ME!</button>
+      <button class="btn-quiz fake-btn">NO, CLICK ME!</button>
+      <button class="btn-quiz" id="realBtn">mai hun asli !</button>
+      <button class="btn-quiz fake-btn">Nai mai asli wala hun!</button>
+    </div>
+  </div>
+  <!-- LEVEL 6: BIRTHDAY CAKE -->
+  <div id="level6" class="container">
+    <h1 style="text-shadow: 0 0 20px rgba(255,255,255,0.8);">Make a Wish! 🌠</h1>
+    <p style="opacity:0.9;">Blow out all the candles...</p>
+    <div class="roast-box" id="finalRoast" style="display: none;">
+      😏 That trick candle though... Classic!
+    </div>
+    <div class="cake-box">
+      <div class="candles" id="candlesContainer">
+        <div class="candle"><div class="flame" onclick="blow(this)"></div></div>
+        <div class="candle"><div class="flame" onclick="blow(this, true)"></div></div>
+        <div class="candle"><div class="flame" onclick="blow(this)"></div></div>
+      </div>
+      <div class="cake"><div class="frosting"></div></div>
+    </div>
+    <div id="finalMsg">
+      <h1 style="font-size: clamp(2rem, 6vw, 3rem); margin-top:15px;">🎉 HAPPY BIRTHDAY! 🎉</h1>
+      <h2 style="color:#ffd93d; font-size: clamp(1.5rem, 5vw, 2rem); margin-top: 10px;">Safura Fatima</h2>
+      <p style="margin-top: 20px; font-size: clamp(1rem, 3vw, 1.2rem);">You survived all my pranks! Impressive! 🎊</p>
+      <p style="font-size: clamp(0.9rem, 2.5vw, 1rem); margin-top: 10px; opacity: 0.8;">
+        Final Troll Score: <span id="finalScore" style="font-size: clamp(1.2rem, 3.5vw, 1.5rem); color: #ff6b6b;">0</span> 😈
+      </p>
+    </div>
+  </div>
+  
+  <!-- FINAL BIRTHDAY WISH -->
+  <div id="finalWish" class="container">
+    <div class="birthday-container">
+      <div class="birthday-message">Happy Birthday</div>
+      <div class="name-display">Safura Fatima</div>
+      <div class="emoji-decoration">🎂✨🎈🎉🎊</div>
+      <div class="personal-message">
+        haan maloon hai late hogaya but aapke ammi bhi shab e barat ko celebrate karne wale theey right? toh enjoy filhaal gift Eid k din Inshaallah
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    // RIDDLES DATA
+    const riddles = [
+      {
+        question: '"Ek aadmi tez baarish mein bina chatri (umbrella) ke ja raha tha. Uske paas topi bhi nahi thi, phir bhi uska ek bhi baal geela nahi hua. Batao kaise?"<br><br><em>(A man was walking in heavy rain without an umbrella or hat. Yet, not a single hair on his head got wet. How?)</em>',
+        answer: 'ganja',
+        reveal: 'Kyunki wo Ganja (Bald) tha!Takla'
+      },
+      {
+        question: '"Wo kaun hai jo raat ko aati hai, aapka khoon peeti hai, aur thappad kha ke marr jaati hai?"<br><br><em>(Who comes at night, drinks your blood, and dies after getting slapped?)</em>',
+        answer: 'machar',
+        reveal: 'Machar (Mosquito)'
+      },
+      {
+        question: '"Wo kaunsa Laddu hai jo khaye wo pachtaye, aur jo na khaye wo bhi pachtaye?"<br><br><em>(What is that sweet (Laddu) which makes you regret if you eat it, and regret if you don\'t eat it?)</em>',
+        answer: 'shaadi',
+        reveal: 'Shaadi ka Laddu (Marriage)'
+      },
+      {
+        question: '"Hari dibbi, laal lagaam. Uske andar baitha ghulaam."<br><br><em>(A green box, a red rein. Inside sits a slave/man.)</em>',
+        answer: 'tarbooz',
+        reveal: 'Tarbooz (Watermelon)'
+      },
+      {
+        question: '"Ek thaal motiyon se bhara, sabke sar par ulta dhara. Charon taraf woh thaal phire, moti uss se ek na gire."<br><br><em>(A plate full of pearls, placed upside down on everyone\'s head. The plate moves all around, but not a single pearl falls.)</em>',
+        answer: 'aasman',
+        reveal: 'Aasman aur Taare (Sky and Stars)'
+      }
+    ];
+    
+    let currentRiddleIndex = 0;
+    let riddleAttempts = {};
+    
+    function checkRiddle(riddleNum, correctAnswer) {
+      const input = document.getElementById('answer' + riddleNum);
+      const reveal = document.getElementById('reveal' + riddleNum);
+      const checkBtn = event.target;
+      
+      if (!input.value.trim()) {
+        checkBtn.innerText = "Are pehle answer likho phir dekho !";
+        playErrorSound();
+        setTimeout(() => {
+          checkBtn.innerText = "Check Answer";
+        }, 2000);
+        return;
+      }
+      
+      if (!riddleAttempts[riddleNum]) {
+        riddleAttempts[riddleNum] = 0;
+      }
+      
+      riddleAttempts[riddleNum]++;
+      
+      const userAnswer = input.value.toLowerCase().trim();
+      const isCorrect = userAnswer.includes(correctAnswer) || 
+                        riddles[riddleNum - 1].answer === userAnswer;
+      
+      if (riddleAttempts[riddleNum] === 1 && !isCorrect) {
+        checkBtn.innerText = "Try Again!";
+        playErrorSound();
+        input.style.border = "2px solid #ff6b6b";
+        setTimeout(() => {
+          checkBtn.innerText = "Reveal Answer";
+          input.style.border = "2px solid rgba(255, 255, 255, 0.3)";
+        }, 1500);
+      } else {
+        // Show answer
+        reveal.style.display = 'block';
+        playSuccessSound();
+        confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+        
+        setTimeout(() => {
+          if (riddleNum < 5) {
+            loadNextRiddle(riddleNum + 1);
+          } else {
+            // All riddles completed
+            setTimeout(() => {
+              document.getElementById('riddleSection').classList.remove('active');
+              setTimeout(() => {
+                document.getElementById('riddleSection').style.display = 'none';
+                document.getElementById('level3').classList.add('active');
+              }, 300);
+            }, 1500);
+          }
+        }, 2000);
+      }
+    }
+    
+    function loadNextRiddle(riddleNum) {
+      const riddleContainer = document.getElementById('riddleContainer');
+      const riddle = riddles[riddleNum - 1];
+      
+      riddleContainer.innerHTML = `
+        <div class="riddle" id="riddle${riddleNum}">
+          <div class="riddle-text">
+            <strong>Riddle ${riddleNum}:</strong><br>
+            ${riddle.question}
+          </div>
+          <input type="text" class="riddle-input" id="answer${riddleNum}" placeholder="Type your answer here...">
+          <button class="btn-check" onclick="checkRiddle(${riddleNum}, '${riddle.answer}')">Check Answer</button>
+          <div class="answer-reveal" id="reveal${riddleNum}">
+            ✅ Answer: ${riddle.reveal}
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('currentRiddle').innerText = riddleNum;
+      currentRiddleIndex = riddleNum - 1;
+    }
+    
+    // AUDIO SYSTEM
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioCtx = new AudioContext();
+    document.addEventListener('click', () => audioCtx.resume(), { once: true });
+    document.addEventListener('touchstart', () => audioCtx.resume(), { once: true });
+    function playBeep(frequency = 440, duration = 0.1, type = 'sine') {
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+      
+      gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+      
+      oscillator.start(audioCtx.currentTime);
+      oscillator.stop(audioCtx.currentTime + duration);
+    }
+    function playSuccessSound() {
+      playBeep(523.25, 0.1);
+      setTimeout(() => playBeep(659.25, 0.1), 100);
+      setTimeout(() => playBeep(783.99, 0.2), 200);
+    }
+    function playErrorSound() {
+      playBeep(200, 0.3, 'sawtooth');
+      setTimeout(() => playBeep(150, 0.3, 'sawtooth'), 200);
+    }
+    function playSwishSound() {
+      playBeep(800, 0.05);
+      setTimeout(() => playBeep(600, 0.05), 30);
+    }
+    function playScreamSound() {
+      for(let i = 0; i < 10; i++) {
+        setTimeout(() => playBeep(800 - (i * 50), 0.1, 'square'), i * 50);
+      }
+    }
+    function playLaughSound() {
+      playBeep(300, 0.1);
+      setTimeout(() => playBeep(300, 0.1), 200);
+      setTimeout(() => playBeep(300, 0.15), 400);
+    }
+    function playBlowSound() {
+      const bufferSize = audioCtx.sampleRate * 0.3;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = buffer.getChannelData(0);
+      
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = (Math.random() * 2 - 1) * 0.1;
+      }
+      
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+      
+      const gainNode = audioCtx.createGain();
+      gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+      
+      noise.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      noise.start();
+    }
+    function playBirthdaySong() {
+      const notes = [
+        {freq: 264, duration: 0.3}, {freq: 264, duration: 0.2},
+        {freq: 297, duration: 0.5}, {freq: 264, duration: 0.5},
+        {freq: 352, duration: 0.5}, {freq: 330, duration: 0.8},
+        {freq: 264, duration: 0.3}, {freq: 264, duration: 0.2},
+        {freq: 297, duration: 0.5}, {freq: 264, duration: 0.5},
+        {freq: 396, duration: 0.5}, {freq: 352, duration: 0.8},
+        {freq: 264, duration: 0.3}, {freq: 264, duration: 0.2},
+        {freq: 528, duration: 0.5}, {freq: 440, duration: 0.5},
+        {freq: 352, duration: 0.5}, {freq: 330, duration: 0.5},
+        {freq: 297, duration: 0.8}
+      ];
+      
+      let time = 0;
+      notes.forEach(note => {
+        setTimeout(() => playBeep(note.freq, note.duration), time * 1000);
+        time += note.duration + 0.1;
+      });
+    }
+    // TROLL COUNTER
+    let trollScore = 0;
+    function addTrollPoint(points = 1) {
+      trollScore += points;
+      document.getElementById('trollScore').innerText = trollScore;
+      playLaughSound();
+    }
+    // VARIABLES
+    const level1 = document.getElementById('level1');
+    const level2 = document.getElementById('level2');
+    const riddleSection = document.getElementById('riddleSection');
+    const level3 = document.getElementById('level3');
+    const level4 = document.getElementById('level4');
+    const level5 = document.getElementById('level5');
+    const level6 = document.getElementById('level6');
+    const finalWish = document.getElementById('finalWish');
+    
+    // LEVEL 1: RUNNING BUTTON
+    const runBtn = document.getElementById('runBtn');
+    const roastBox1 = document.getElementById('roastBox1');
+    const missCount = document.getElementById('missCount');
+    let clicks = 0;
+    
+    const funnyMessages = [
+      "OOPS! Missed! 😂",
+      "bahut ahista click kare 🐌", 
+      "Jaldi click karo ji 💀",
+      "Koshish bhi karre ho? 🤣",
+      "This is embarrassing... 😬",
+      "Janedo Haar maanlo 😏",
+      "Ek aur baar challenge you 😈",
+      "HAHAHAHA! 🤣"
+    ];
+    
+    runBtn.addEventListener('click', (e) => {
+      if (clicks < 8) {
+        e.preventDefault();
+        const limit = window.innerWidth < 400 ? 70 : 100; 
+        const x = (Math.random() - 0.5) * 2 * limit;
+        const y = (Math.random() - 0.5) * 2 * 70;
+        
+        runBtn.style.transform = `translate(${x}px, ${y}px)`;
+        runBtn.innerText = funnyMessages[clicks % funnyMessages.length];
+        runBtn.style.background = "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)";
+        
+        playSwishSound();
+        clicks++;
+        
+        if(clicks === 3) {
+          roastBox1.style.display = 'block';
+          addTrollPoint();
+        }
+        
+        missCount.innerText = `Misses: ${clicks} 😂`;
+      } else {
+        playSuccessSound();
+        addTrollPoint(2);
+        runBtn.innerText = "FINALLY! 🎉";
+        runBtn.style.background = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)";
+        runBtn.style.transform = "scale(1.1)";
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        setTimeout(() => {
+          level1.classList.remove('active');
+          setTimeout(() => {
+            level1.style.display = 'none';
+            level2.classList.add('active');
+          }, 300);
+        }, 1500);
+      }
+    });
+    // LEVEL 2: BOTH ARE PRANKS
+    const dangerBtn = document.getElementById('dangerBtn');
+    const safeBtn = document.getElementById('safeBtn');
+    
+    function triggerJumpscare() {
+      const jumpscare = document.getElementById('jumpscare');
+      jumpscare.style.display = 'flex';
+      playScreamSound();
+      document.body.classList.add('shake');
+      
+      addTrollPoint(3);
+      
+      setTimeout(() => {
+        jumpscare.style.display = 'none';
+        document.body.classList.remove('shake');
+        goToRiddles();
+      }, 2000);
+    }
+    function triggerFakeVirus() {
+      const virusScreen = document.getElementById('virusScreen');
+      virusScreen.style.display = 'block';
+      playErrorSound();
+      
+      addTrollPoint(3);
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 20;
+        document.getElementById('virusProgress').innerText = `${progress}%`;
+        playBeep(200 + (progress * 2), 0.1, 'square');
+        
+        if(progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            virusScreen.style.display = 'none';
+            goToRiddles();
+          }, 2000);
+        }
+      }, 400);
+    }
+    dangerBtn.addEventListener('click', () => {
+      triggerJumpscare();
+    });
+    safeBtn.addEventListener('click', () => {
+      triggerFakeVirus();
+    });
+    
+    // GO TO RIDDLES
+    function goToRiddles() {
+      level2.classList.remove('active');
+      setTimeout(() => {
+        level2.style.display = 'none';
+        riddleSection.classList.add('active');
+      }, 300);
+    }
+    
+    // LEVEL 3: IMPOSSIBLE QUIZ
+    let wrongAttempts = 0;
+    document.querySelectorAll('#level3 .btn-quiz').forEach(btn => {
+      btn.addEventListener('click', function() {
+        if (this.dataset.answer === 'correct') {
+          playSuccessSound();
+          confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+          
+          setTimeout(() => {
+            level3.classList.remove('active');
+            setTimeout(() => {
+              level3.style.display = 'none';
+              level4.classList.add('active');
+              startSpeedChallenge();
+            }, 300);
+          }, 1500);
+        } else {
+          wrongAttempts++;
+          this.classList.add('wrong');
+          playErrorSound();
+          document.body.classList.add('shake');
+          
+          if(wrongAttempts === 1) {
+            document.getElementById('memeContainer').style.display = 'block';
+            addTrollPoint(2);
+          }
+          if(wrongAttempts >= 2) {
+            document.getElementById('roastBox3').style.display = 'block';
+            addTrollPoint();
+          }
+          
+          setTimeout(() => {
+            this.classList.remove('wrong');
+            document.body.classList.remove('shake');
+          }, 500);
+        }
+      });
+    });
+    // LEVEL 4: SPEED CHALLENGE
+    let speedClicks = 0;
+    let speedTimer;
+    let timeLeft = 10;
+    function startSpeedChallenge() {
+      speedTimer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').innerText = timeLeft;
+        
+        if(timeLeft <= 3) {
+          document.getElementById('timer').style.color = '#ff0000';
+          playBeep(400, 0.1);
+        }
+        
+        if(timeLeft <= 0) {
+          clearInterval(speedTimer);
+          if(speedClicks < 10) {
+            document.getElementById('speedResult').innerText = "⏰ TIME'S UP! Too slow! 😂";
+            document.getElementById('roastBox4').style.display = 'block';
+            playErrorSound();
+            addTrollPoint(2);
+            
+            setTimeout(() => {
+              level4.classList.remove('active');
+              setTimeout(() => {
+                level4.style.display = 'none';
+                level5.classList.add('active');
+              }, 300);
+            }, 2500);
+          }
+        }
+      }, 1000);
+    }
+    document.getElementById('speedBtn').addEventListener('click', () => {
+      if(speedClicks < 10 && timeLeft > 0) {
+        speedClicks++;
+        document.getElementById('clickCount').innerText = speedClicks;
+        playBeep(400 + (speedClicks * 50), 0.05);
+        
+        if(speedClicks === 10) {
+          clearInterval(speedTimer);
+          document.getElementById('speedResult').innerText = `✅ Success! (${10 - timeLeft}s to spare)`;
+          playSuccessSound();
+          confetti({ particleCount: 70, spread: 60, origin: { y: 0.7 } });
+          
+          setTimeout(() => {
+            level4.classList.remove('active');
+            setTimeout(() => {
+              level4.style.display = 'none';
+              level5.classList.add('active');
+            }, 300);
+          }, 2000);
+        }
+      }
+    });
+    // LEVEL 5: FIND THE REAL BUTTON
+    document.querySelectorAll('.fake-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.classList.add('wrong');
+        playErrorSound();
+        document.body.classList.add('shake');
+        addTrollPoint();
+        
+        setTimeout(() => {
+          btn.classList.remove('wrong');
+          document.body.classList.remove('shake');
+        }, 500);
+      });
+    });
+    document.getElementById('realBtn').addEventListener('click', () => {
+      playSuccessSound();
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      
+      setTimeout(() => {
+        level5.classList.remove('active');
+        setTimeout(() => {
+          level5.style.display = 'none';
+          level6.classList.add('active');
+          document.body.classList.add('dark-mode');
+        }, 300);
+      }, 1500);
+    });
+    // LEVEL 6: BIRTHDAY CAKE
+    let candlesOut = 0;
+    let trickCount = 0;
+    function blow(flame, isTrick=false) {
+      if(flame.classList.contains('out')) return;
+      playBlowSound();
+      
+      flame.classList.add('out');
+      candlesOut++;
+      if(isTrick && trickCount < 2) {
+        setTimeout(()=>{
+          flame.classList.remove('out');
+          candlesOut--;
+          trickCount++;
+          playBeep(400, 0.2);
+          
+          if(trickCount === 1) {
+            document.getElementById('finalRoast').style.display = 'block';
+            addTrollPoint(3);
+          }
+        }, 1000);
+      } else {
+        checkWin();
+      }
+    }
+    function checkWin() {
+      if(candlesOut === 3) {
+        setTimeout(() => {
+          document.body.classList.remove('dark-mode');
+          document.getElementById('candlesContainer').style.display = 'none';
+          document.getElementById('finalMsg').style.display = 'block';
+          document.getElementById('finalScore').innerText = trollScore;
+          
+          playBirthdaySong();
+          
+          const duration = 3000;
+          const end = Date.now() + duration;
+          (function frame() {
+            confetti({
+              particleCount: 3,
+              angle: 60,
+              spread: 55,
+              origin: { x: 0 },
+              colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+            });
+            confetti({
+              particleCount: 3,
+              angle: 120,
+              spread: 55,
+              origin: { x: 1 },
+              colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff']
+            });
+            if (Date.now() < end) {
+              requestAnimationFrame(frame);
+            }
+          }());
+          
+          // Go to final wish after 4 seconds
+          setTimeout(() => {
+            level6.classList.remove('active');
+            setTimeout(() => {
+              level6.style.display = 'none';
+              finalWish.classList.add('active');
+              playBirthdaySong();
+              
+              // Continue confetti for final wish
+              const finalDuration = 8000;
+              const finalEnd = Date.now() + finalDuration;
+              (function finalFrame() {
+                confetti({
+                  particleCount: 5,
+                  angle: 60,
+                  spread: 55,
+                  origin: { x: 0 },
+                  colors: ['#ff6b6b', '#ffd93d', '#4ecdc4', '#ff6b6b']
+                });
+                confetti({
+                  particleCount: 5,
+                  angle: 120,
+                  spread: 55,
+                  origin: { x: 1 },
+                  colors: ['#ff6b6b', '#ffd93d', '#4ecdc4', '#ff6b6b']
+                });
+                if (Date.now() < finalEnd) {
+                  requestAnimationFrame(finalFrame);
+                }
+              }());
+            }, 300);
+          }, 4000);
+        }, 1000);
+      }
+    }
+  </script>
+</body>
+</html>
